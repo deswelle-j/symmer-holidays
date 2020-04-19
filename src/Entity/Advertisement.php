@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Service\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertisementRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Advertisement
 {
@@ -54,6 +56,17 @@ class Advertisement
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initialzeSlug() {
+        if(empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
     }
 
     public function getTitle(): ?string
