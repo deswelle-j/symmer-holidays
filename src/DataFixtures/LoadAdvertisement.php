@@ -55,6 +55,8 @@ class LoadAdvertisement extends Fixture
             
             $manager->persist($advertisement);
 
+            $this->addReference($ad['Title'], $advertisement);
+
         }
 
 
