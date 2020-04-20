@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Service\Slugify;
 
@@ -52,6 +54,16 @@ class Advertisement
      * @ORM\Column(type="integer")
      */
     private $rooms;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="advertisement", orphanRemoval=true)
+     */
+    private $pictures;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,6 +161,37 @@ class Advertisement
     public function setRooms(int $rooms): self
     {
         $this->rooms = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setAdvertisement($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getAdvertisement() === $this) {
+                $picture->setAdvertisement(null);
+            }
+        }
 
         return $this;
     }
