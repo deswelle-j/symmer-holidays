@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{advertisement.title}}
+{% endblock %}
+
+{% block body %}
+    <div class="advertisement-title" style="background-image: url({{ advertisement.coverImage}}); background-repeat: no-repeat; background-position: center;">
+        <div class="container">
+            <h1>{{advertisement.title}}</h1>
+            <p>{{advertisement.introduction}}</p>
+            <p class="h2">
+                <strong>{{advertisement.rooms}} chambres</strong> pour <strong>{{advertisement.price}} €</strong> par nuit
+            </p>
+            <a href="#" class="btn btn-primary">Réserver !</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                {{advertisement.content|raw}}
+
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    {% for image in advertisement.pictures %}
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" class="active"></li>
+                        </ol>
+                    {% endfor %}
+                    <div class="carousel-inner">
+                        {% for image in advertisement.pictures %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img class="d-block w-100" src="{{image.url}}" alt="First slide">
+                        </div>
+                        {% endfor %}
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="http://placehold.it/64x64" alt="avatar test">
+                    </div>
+                    <div class="col">
+                        <h3>Joseph test</h3>
+                        <span class="badge badge-primary">3 annonces</span>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, facere corporis incidunt facilis libero sequi eaque eius ea ab debitis!</p>
+                <p>Esse officia perferendis obcaecati beatae, similique et amet ut voluptatibus numquam perspiciatis enim. Accusantium cupiditate voluptas expedita maiores molestiae omnis.</p>
+                <p>Delectus adipisci perferendis facere laboriosam fugiat fugit enim molestiae iusto doloremque quos nesciunt eos totam rerum, vero cum ad non.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+{% endblock %}
