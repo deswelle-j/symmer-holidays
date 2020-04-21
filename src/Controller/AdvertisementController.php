@@ -13,9 +13,10 @@ class AdvertisementController extends AbstractController
      */
     public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            
+
+
+        return $this->render( 'advertisement/list.html.twig', [
+            'advertisments' => $advertisements
         ]);
     }
 
@@ -27,7 +28,21 @@ class AdvertisementController extends AbstractController
         $advertisements = $adRepo->findAll();
 
         return $this->render( 'advertisement/list.html.twig', [
-            'advertisments' => $advertisements
+            'advertisements' => $advertisements
         ]);
     }
+
+        /**
+     * @Route("/advertisement/{slug}", name="advertisement_show")
+     * 
+     * @return Response
+     */
+    public function show( $slug, AdvertisementRepository $adRepo)
+    {
+        $advertisement =$adRepo->findOneBySlug($slug);
+        return $this->render('advertisement/show.html.twig', [
+            'advertisement' => $advertisement
+        ]);
+    }
+
 }

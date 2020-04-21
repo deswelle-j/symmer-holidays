@@ -7,28 +7,28 @@
     <h1 class="my-3">Voici les annonces de nos hôtes !</h1>
 
     <div class="row">
-        {% for advertisment in advertisments %}
+        {% for advertisement in advertisements %}
             <div class="col-md-4">
                 <div class="card bg-light mb-3">
                     <div class="card-header text-center">
-                        {{advertisment.rooms}} chambres, <strong>{{advertisment.price}}&euro; / nuit</strong><br>
+                        {{advertisement.rooms}} chambres, <strong>{{advertisement.price}}&euro; / nuit</strong><br>
                         <small>pas encore noté</small>
                     </div>
-                    <a href="#">
-                        <img src="{{advertisment.coverImage}}" alt="Image l'appartement" 
+                    <a href="{{path('advertisement_show', {'slug': advertisement.slug}) }}">
+                        <img src="{{advertisement.coverImage}}" alt="Image l'appartement" 
                         style="height: 200px; width: 100%; display: block">
                     </a>
 
                     <div class="card-body">
                         <h4 class="card-title">
-                        <a href="#">
-                            {{advertisment.title}}
+                        <a href="{{path('advertisement_show', {'slug': advertisement.slug}) }}">
+                            {{advertisement.title}}
                         </a>
                         </h4>
                         <p class="text-center">
-                            {{advertisment.introduction}}
+                            {{advertisement.introduction}}
                         </p>
-                        <a href="#" class="btn btn-secondary">En savoir plus</a>
+                        <a href="{{path('advertisement_show', {'slug': advertisement.slug}) }}" class="btn btn-secondary">En savoir plus</a>
                     </div>
                 </div> 
             </div>
