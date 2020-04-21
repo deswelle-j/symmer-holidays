@@ -22,11 +22,24 @@ class AdvertisementController extends AbstractController
 
     /**
      * @Route("/advertisement/new", name="advertisement_new")
+     * @Route("/advertisement/{slug}/edit", name="advertisement_edit")
      */
-    public function new()
+    public function advertisementForm()
     {
-        return $this->render('advertisement/show.html.twig', [
-            'advertisement' => $advertisement
+        return $this->render('advertisement/form.html.twig', [
+            'advertisementFrom' => $form
+        ]);
+    }
+
+    /**
+     * @Route("/advertisements", name="advertisement_list")
+     */
+    public function advertisements(AdvertisementRepository $adRepo)
+    {
+        $advertisements = $adRepo->findAll();
+
+        return $this->render( 'advertisement/list.html.twig', [
+            'advertisements' => $advertisements
         ]);
     }
 
