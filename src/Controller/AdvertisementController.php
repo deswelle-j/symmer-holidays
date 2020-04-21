@@ -21,18 +21,16 @@ class AdvertisementController extends AbstractController
     }
 
     /**
-     * @Route("/advertisements", name="advertisement_list")
+     * @Route("/advertisement/new", name="advertisement_new")
      */
-    public function advertisements(AdvertisementRepository $adRepo)
+    public function new()
     {
-        $advertisements = $adRepo->findAll();
-
-        return $this->render( 'advertisement/list.html.twig', [
-            'advertisements' => $advertisements
+        return $this->render('advertisement/show.html.twig', [
+            'advertisement' => $advertisement
         ]);
     }
 
-        /**
+    /**
      * @Route("/advertisement/{slug}", name="advertisement_show")
      * 
      * @return Response
@@ -44,5 +42,7 @@ class AdvertisementController extends AbstractController
             'advertisement' => $advertisement
         ]);
     }
+
+    
 
 }
