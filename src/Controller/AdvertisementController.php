@@ -2,19 +2,47 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AdvertisementRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdvertisementController extends AbstractController
 {
     /**
-     * @Route("/", name="advertisement")
+     * @Route("/", name="homepage")
      */
     public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            
+
+
+        return $this->render( 'advertisement/list.html.twig', [
+            'advertisments' => $advertisements
         ]);
     }
+
+    /**
+     * @Route("/advertisements", name="advertisement_list")
+     */
+    public function advertisements(AdvertisementRepository $adRepo)
+    {
+        $advertisements = $adRepo->findAll();
+
+        return $this->render( 'advertisement/list.html.twig', [
+            'advertisements' => $advertisements
+        ]);
+    }
+
+        /**
+     * @Route("/advertisement/{slug}", name="advertisement_show")
+     * 
+     * @return Response
+     */
+    public function show( $slug, AdvertisementRepository $adRepo)
+    {
+        $advertisement =$adRepo->findOneBySlug($slug);
+        return $this->render('advertisement/show.html.twig', [
+            'advertisement' => $advertisement
+        ]);
+    }
+
 }
