@@ -13,7 +13,6 @@ class AdvertisementType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
             ->add('price')
             ->add('introduction')
             ->add('content')
@@ -26,7 +25,7 @@ class AdvertisementType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Advertisement::class,
-            
+
         ]);
     }
 }
