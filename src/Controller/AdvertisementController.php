@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Advertisement;
+use App\Form\AdvertisementType;
 use App\Repository\AdvertisementRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,10 +26,17 @@ class AdvertisementController extends AbstractController
      * @Route("/advertisement/new", name="advertisement_new")
      * @Route("/advertisement/{slug}/edit", name="advertisement_edit")
      */
-    public function advertisementForm()
+    public function advertisementForm($slug = false)
     {
+        $formMethod = $slug ? 'Modifier' : 'Créer';
+        $advertisement = new Advertisement();
+
+        $form =$this->createForm(AdvertisementType::class, $advertisement);
+
+
         return $this->render('advertisement/form.html.twig', [
-            'advertisementFrom' => $form
+            'formMethod' => $formMethod,
+            'advertisementFrom' => $form->createView()
         ]);
     }
 
