@@ -26,6 +26,7 @@ class AdvertisementType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Advertisement::class,
+            
         ]);
     }
 }

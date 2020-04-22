@@ -5,11 +5,11 @@
 {% block body %}
 
 <div class="container">
-    <h1>Créer une annonce</h1>
+    <h1>{{ formMethod }} une annonce</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(advertisementFrom) }}
 
-    {{ form_end(form) }}
+    {{ form_end(advertisementFrom) }}
 </div>
 
 {% endblock %}
