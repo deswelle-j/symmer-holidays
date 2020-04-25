@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\Advertisement;
 use App\Form\AdvertisementType;
 use App\Repository\AdvertisementRepository;
@@ -27,17 +28,23 @@ class AdvertisementController extends AbstractController
      * @Route("/advertisement/new", name="advertisement_new")
      * @Route("/advertisement/{slug}/edit", name="advertisement_edit")
      */
-    public function advertisementForm($slug = false , Request $request)
+    public function advertisementForm($slug = false , Request $request, AdvertisementRepository $adRepo)
     {
         $formMethod = $slug ? 'Modifier' : 'Créer';
-        $advertisement = new Advertisement();
+
+        $advertisement = $slug ? $adRepo->findOneBySlug($slug) : new Advertisement();
 
         $form =$this->createForm(AdvertisementType::class, $advertisement);
 
         $form->handleRequest($request);
-
+        $manager = $this->getDoctrine()->getManager();
+        
         if($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
+            foreach($advertisement->getPictures() as $picture) {
+                $picture->setAdvertisement($advertisement);
+                $manager->persist($picture);
+            }
+            
             $manager->persist($advertisement);
 
             $manager->flush();
@@ -47,7 +54,7 @@ class AdvertisementController extends AbstractController
 
         return $this->render('advertisement/form.html.twig', [
             'formMethod' => $formMethod,
-            'advertisementFrom' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
