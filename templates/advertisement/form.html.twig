@@ -2,15 +2,58 @@
 
 {% block title %}Creation d'une annonce{% endblock %}
 
+{% form_theme form _self %}
+
 {% block body %}
 
 <div class="container">
     <h1>{{ formMethod }} une annonce</h1>
 
-    {{ form_start(advertisementFrom) }}
-    {{ form_widget(advertisementFrom)}}
+    {{ form_start(form) }}
+    {{ form_widget(form)}}
     <button type="submit">{{ formMethod }} l'annonce</button>
-    {{ form_end(advertisementFrom) }}
+    {{ form_end(form) }}
 </div>
 
+{% endblock %}
+
+{% block _advertisement_pictures_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _advertisement_pictures_widget %}
+    <p>Ajouter une image</p>
+
+    {{ form_widget(form) }}
+
+    <button type="button" id="add-picture">Ajouter une image</button>
+
+{% endblock %}
+
+{% block _advertisment_pictures_entry_widget %}
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form.url) }}
+            </div>
+            <div class="col">
+                {{ form_widget(form.title) }}
+            </div>
+            <div class="col">
+                {{ form_widget(form.caption) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+    $('#add-picture').click(function(){
+        const index = $('#advertisement_pictures div.form-group').length
+
+        const tmpl = $('#advertisement_pictures').data('prototype').replace(/__name__/g, index);
+
+        $('#advertisement_pictures').append(tmpl);
+    });
+    </script>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\Advertisement;
 use App\Form\AdvertisementType;
 use App\Repository\AdvertisementRepository;
@@ -35,9 +36,14 @@ class AdvertisementController extends AbstractController
         $form =$this->createForm(AdvertisementType::class, $advertisement);
 
         $form->handleRequest($request);
-
+        $manager = $this->getDoctrine()->getManager();
+        
         if($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
+            foreach($advertisement->getPictures() as $picture) {
+                $picture->setAdvertisement($advertisement);
+                $manager->persist($picture);
+            }
+            
             $manager->persist($advertisement);
 
             $manager->flush();
@@ -47,7 +53,7 @@ class AdvertisementController extends AbstractController
 
         return $this->render('advertisement/form.html.twig', [
             'formMethod' => $formMethod,
-            'advertisementFrom' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
