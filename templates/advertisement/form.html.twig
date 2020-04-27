@@ -30,17 +30,22 @@
 
 {% endblock %}
 
-{% block _advertisment_pictures_entry_widget %}
-    <div class="form-group">
+{% block _advertisement_pictures_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
         <div class="row">
-            <div class="col">
+            <div class="col-10">
+                <div class="col">
                 {{ form_widget(form.url) }}
+                </div>
+                <div class="col">
+                    {{ form_widget(form.title) }}
+                </div>
+                <div class="col">
+                    {{ form_widget(form.caption) }}
+                </div>
             </div>
-            <div class="col">
-                {{ form_widget(form.title) }}
-            </div>
-            <div class="col">
-                {{ form_widget(form.caption) }}
+            <div class="col-2">
+                <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{id}}">X</button>
             </div>
         </div>
     </div>
@@ -54,6 +59,17 @@
         const tmpl = $('#advertisement_pictures').data('prototype').replace(/__name__/g, index);
 
         $('#advertisement_pictures').append(tmpl);
+
+        handleDelete()
     });
+
+    function handleDelete() {
+        $('button[data-action="delete"').click(function(){
+            const target = this.dataset.target
+            $(target).remove();
+        })
+    }
+
+    handleDelete()
     </script>
 {% endblock %}
