@@ -49,6 +49,13 @@ class AdvertisementController extends AbstractController
 
             $manager->flush();
 
+            $flashMethod = $slug ? 'Modifié' : 'Créé';
+
+            $this->addFlash(
+                'success',
+                "L'annonce {$advertisement->getTitle()} a bien été {$flashMethod}"
+            );
+
             return $this->redirectToRoute('advertisement_show', ['slug' => $advertisement->getSlug() ]);
         }
 
