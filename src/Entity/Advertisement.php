@@ -79,6 +79,7 @@ class Advertisement
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="advertisement", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $pictures;
 

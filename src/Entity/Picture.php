@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PictureRepository")
+ * @UniqueEntity(
+ * fields={"title"},
+ * message="Une image comporte déjà ce nom dans la base"
  */
 class Picture
 {
@@ -18,6 +23,12 @@ class Picture
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     * min=5,
+     * max=255,
+     * minMessage="Le titre doit comporter 5 caractères au minimum"
+     * maxMessage="Le titre doit comporter 255 caractères au maximum"
+     * )
      */
     private $title;
 
