@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Service\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdvertisementRepository")
@@ -22,6 +23,12 @@ class Advertisement
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     * min=5,
+     * max=255,
+     * minMessage="Le titre doit comporter 5 caractères au minimum"
+     * maxMessage="Le titre doit comporter 255 caractères au maximum"
+     * )
      */
     private $title;
 
@@ -32,16 +39,25 @@ class Advertisement
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     * min=20,
+     * minMessage="Le titre doit comporter 20 caractères au minimum"
+     * )
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     * min=100,
+     * minMessage="Le titre doit comporter 100 caractères au minimum"
+     * )
      */
     private $content;
 
@@ -52,6 +68,7 @@ class Advertisement
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $rooms;
 
