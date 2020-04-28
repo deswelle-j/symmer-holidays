@@ -25,7 +25,8 @@
     <p>Ajouter une image</p>
 
     {{ form_widget(form) }}
-
+    
+    <input type="hidden" id="widgets-counter" value="0">
     <button type="button" id="add-picture">Ajouter une image</button>
 
 {% endblock %}
@@ -54,11 +55,13 @@
 {% block javascripts %}
     <script>
     $('#add-picture').click(function(){
-        const index = $('#advertisement_pictures div.form-group').length
+        const index = +$('#widgets-counter').val();
 
         const tmpl = $('#advertisement_pictures').data('prototype').replace(/__name__/g, index);
 
         $('#advertisement_pictures').append(tmpl);
+
+        $('#widgets-counter').val(index + 1);
 
         handleDelete()
     });
