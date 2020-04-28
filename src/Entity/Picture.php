@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  * fields={"title"},
  * message="Une image comporte déjà ce nom dans la base"
+ * )
  */
 class Picture
 {
@@ -26,7 +27,7 @@ class Picture
      * @Assert\Length(
      * min=5,
      * max=255,
-     * minMessage="Le titre doit comporter 5 caractères au minimum"
+     * minMessage="Le titre doit comporter 5 caractères au minimum",
      * maxMessage="Le titre doit comporter 255 caractères au maximum"
      * )
      */
