@@ -15,12 +15,12 @@ class AdvertisementController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(AdvertisementRepository $adRepo)
     {
+        $advertisements = $adRepo->findAll();
 
-
-        return $this->render( 'advertisement/list.html.twig', [
-            'advertisments' => $advertisements
+        return $this->render('advertisment/index.html.twig', [
+            'ads' => $advertisements,
         ]);
     }
 
