@@ -19,8 +19,8 @@ class AdvertisementController extends AbstractController
     {
         $advertisements = $adRepo->findAll();
 
-        return $this->render('advertisment/index.html.twig', [
-            'ads' => $advertisements,
+        return $this->render('home.html.twig', [
+            'advertisements' => $advertisements,
         ]);
     }
 
