@@ -263,6 +263,9 @@
             "./config/routes.yaml"
         ]
     },
+    "symfony/security": {
+        "version": "v4.4.8"
+    },
     "symfony/service-contracts": {
         "version": "v1.1.8"
     },
