@@ -217,4 +217,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->hash;
+    }
+
+    public function getSalt() {}
+
+    public function eraseCredentials() {}
+    
 }
