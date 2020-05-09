@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/account", name="account")
+     * @Route("/login", name="account_login")
      */
-    public function index()
+    public function login()
     {
-        return $this->render('account/index.html.twig', [
-            'controller_name' => 'AccountController',
-        ]);
+        return $this->render('account/login.html.twig');
     }
 }
