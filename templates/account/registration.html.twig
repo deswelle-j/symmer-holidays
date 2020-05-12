@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation d'une annonce{% endblock %}
+
+{% form_theme form 'advertisement/_collectionPicture.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h1>{{ formMethod }}Creation d'un compte</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form)}}
+    <button type="submit">envoyer</button>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
