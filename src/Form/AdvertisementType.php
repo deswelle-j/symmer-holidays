@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Form\PictureType;
 use App\Entity\Advertisement;
-use Symfony\Component\Form\AbstractType;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -14,21 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class AdvertisementType extends AbstractType
+class AdvertisementType extends ApplicationType
 {
-    private function setFieldConf($label, $placeholder) {
-        return [
-            'label' => $label,
-            'attr' => [
-                'placeholder' => $placeholder
-            ]
-        ];
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $builder
             ->add(
                 'title', TextType::class, 

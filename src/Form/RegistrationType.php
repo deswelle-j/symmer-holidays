@@ -3,23 +3,29 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationType extends AbstractType
+class RegistrationType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
+            ->add('firstname', TextType::class, 
+                $this->setFieldConf('Prénom', 'Entrez un prénom'))
+            ->add('lastname', TextType::class, 
+                $this->setFieldConf('Nom', 'Entrez un nom'))
             ->add('avatar')
-            ->add('username')
+            ->add('username', TextType::class, 
+                $this->setFieldConf('Nom utilisateur', 'Entrez un nom d\'utilisateur'))
             ->add('email')
             ->add('hash')
-            ->add('introduction')
-            ->add('description')
+            ->add('introduction', TextareaType::class,
+                $this->setFieldConf('Presentation de l\'utilisateur', ''))
+            ->add('description', TextareaType::class,
+                $this->setFieldConf('Description de l\'utilisateur', ''))
             ->add('slug')
         ;
     }
