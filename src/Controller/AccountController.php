@@ -52,6 +52,13 @@ class AccountController extends AbstractController
 
             $manager->persist($user);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre compte a bien été créé !'
+            );
+
+            return $this->redirectToRoute('account_login');
         }
 
         return $this->render('account/registration.html.twig', [
