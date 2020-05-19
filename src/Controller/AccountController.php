@@ -34,7 +34,7 @@ class AccountController extends AbstractController
 
     }
 
-        /**
+    /**
      * @Route("/register", name="account_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder)

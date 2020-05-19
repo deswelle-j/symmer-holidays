@@ -8,6 +8,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RegistrationType extends ApplicationType
@@ -22,8 +24,10 @@ class RegistrationType extends ApplicationType
             ->add('avatar')
             ->add('username', TextType::class, 
                 $this->setFieldConf('Nom utilisateur', 'Entrez un nom d\'utilisateur'))
-            ->add('email')
-            ->add('hash')
+            ->add('email', EmailType::class, 
+            $this->setFieldConf('Email', 'Entrez une adresse mail'))
+            ->add('hash', PasswordType::class, 
+            $this->setFieldConf('Mot de passe', 'Entrez votre mot de passe'))
             ->add('introduction', TextareaType::class,
                 $this->setFieldConf('Presentation de l\'utilisateur', ''))
             ->add('description', TextareaType::class,
