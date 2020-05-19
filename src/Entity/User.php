@@ -6,9 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *  fields={"username"},
+ *  message="Cet utilisateur existe déjà"
+ * )
  */
 class User implements UserInterface
 {
@@ -21,11 +27,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastname;
 
@@ -41,6 +49,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez entrer un email valide")
      */
     private $email;
 
@@ -48,6 +57,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $hash;
+
+    /**
+     * @Assert\EqualTo(propertyPath="hash", message="Le mot de passe n'est pas identique")
+     */
+    public $passwordConfirm;
 
     /**
      * @ORM\Column(type="text")

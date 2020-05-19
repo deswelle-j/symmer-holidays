@@ -25,9 +25,11 @@ class RegistrationType extends ApplicationType
             ->add('username', TextType::class, 
                 $this->setFieldConf('Nom utilisateur', 'Entrez un nom d\'utilisateur'))
             ->add('email', EmailType::class, 
-            $this->setFieldConf('Email', 'Entrez une adresse mail'))
+                $this->setFieldConf('Email', 'Entrez une adresse mail'))
             ->add('hash', PasswordType::class, 
-            $this->setFieldConf('Mot de passe', 'Entrez votre mot de passe'))
+                $this->setFieldConf('Mot de passe', 'Entrez votre mot de passe'))
+            ->add('passwordConfirm', PasswordType::class, 
+                $this->setFieldConf('Confirmation mot de passe', 'Confirmez votre mot de passe'))
             ->add('introduction', TextareaType::class,
                 $this->setFieldConf('Presentation de l\'utilisateur', ''))
             ->add('description', TextareaType::class,
