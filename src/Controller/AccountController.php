@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,7 @@ class AccountController extends AbstractController
 
     }
 
-        /**
+    /**
      * @Route("/register", name="account_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder)
@@ -62,6 +63,19 @@ class AccountController extends AbstractController
         }
 
         return $this->render('account/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/account/profile", name="account_edit_profile")
+     */
+    public function editProfile()
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserType::class, $user);
+        return $this->render('account/editProfile.html.twig', [
             'form' => $form->createView()
         ]);
     }
