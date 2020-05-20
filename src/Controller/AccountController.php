@@ -31,7 +31,7 @@ class AccountController extends AbstractController
      */
     public function logout()
     {
-        
+
     }
 
     /**
@@ -64,5 +64,13 @@ class AccountController extends AbstractController
         return $this->render('account/registration.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/account/profile", name="account_edit_profile")
+     */
+    public function editProfile()
+    {
+        return $this->render('account/editProfile.html.twig');
     }
 }
