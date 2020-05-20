@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,6 +72,11 @@ class AccountController extends AbstractController
      */
     public function editProfile()
     {
-        return $this->render('account/editProfile.html.twig');
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserType::class, $user);
+        return $this->render('account/editProfile.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

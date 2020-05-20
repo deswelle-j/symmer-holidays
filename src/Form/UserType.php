@@ -17,10 +17,8 @@ class UserType extends AbstractType
             ->add('avatar')
             ->add('username')
             ->add('email')
-            ->add('hash')
             ->add('introduction')
             ->add('description')
-            ->add('slug')
         ;
     }
 
