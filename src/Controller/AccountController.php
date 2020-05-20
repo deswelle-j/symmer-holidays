@@ -31,7 +31,7 @@ class AccountController extends AbstractController
      */
     public function logout()
     {
-
+        
     }
 
     /**
