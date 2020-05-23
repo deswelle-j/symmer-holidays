@@ -70,11 +70,25 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/profile", name="account_edit_profile")
      */
-    public function editProfile()
+    public function editProfile(Request $request)
     {
         $user = $this->getUser();
 
         $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'le profile a été mis a jour'
+            );
+        }
+
         return $this->render('account/editProfile.html.twig', [
             'form' => $form->createView()
         ]);
