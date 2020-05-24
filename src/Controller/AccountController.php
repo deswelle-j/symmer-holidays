@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\PasswordChange;
 use App\Form\RegistrationType;
+use App\Form\PasswordChangeType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,6 +101,12 @@ class AccountController extends AbstractController
      */
     public function passwordChange()
     {
-        return $this->render('account/password.html.twig');
+        $passwordChange = new PasswordChange();
+
+        $form = $this->createForm(PasswordChangeType::class, $passwordChange);
+        
+        return $this->render('account/password.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
