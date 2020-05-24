@@ -93,4 +93,12 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @route(path="/account/password-change", name="account_password")
+     */
+    public function passwordChange()
+    {
+        return $this->render('account/password.html.twig');
+    }
 }
