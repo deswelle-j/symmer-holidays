@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Entity\PasswordChange;
 use App\Form\RegistrationType;
 use App\Form\PasswordChangeType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,12 +100,36 @@ class AccountController extends AbstractController
     /**
      * @route(path="/account/password-change", name="account_password")
      */
-    public function passwordChange()
+    public function passwordChange(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $passwordChange = new PasswordChange();
-
+        $user = $this->getUser();
         $form = $this->createForm(PasswordChangeType::class, $passwordChange);
         
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!password_verify($passwordChange->getOldPassword(), $user->getHash())) {
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe est érroné"));
+            } else {
+                $newPassword = $passwordChange->getNewPassword();
+                $hash = $encoder->encodePassword($user, $newPassword);
+
+                $user->setHash($hash);
+
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'le profile a été mis a jour'
+                );
+
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
         return $this->render('account/password.html.twig', [
             'form' => $form->createView()
         ]);

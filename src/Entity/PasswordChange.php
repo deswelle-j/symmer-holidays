@@ -10,7 +10,7 @@ class PasswordChange
     private $oldPassword;
 
     /**
-     * @Assert\Lenght(min=8, message="Le mot de passe doit contenir au moins 8 caractères")
+     * @Assert\Length(min=8, minMessage="Le mot de passe doit contenir au moins 8 caractères")
      */
     private $newPassword;
 
@@ -18,11 +18,6 @@ class PasswordChange
      * @Assert\EqualTo(propertyPath="newPassword", message="Le mot de passe doit être identique")
      */
     private $confirmPassword;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getOldPassword(): ?string
     {
