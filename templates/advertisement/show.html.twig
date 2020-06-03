@@ -40,10 +40,10 @@
             {% set author = advertisement.author %}
                 <div class="row">
                     <div class="col-4">
-                        <img src="{{ author.picture }}" class="avatar avatar-medium" alt="image d'avatar de {{ author.fullName }}"/>                    </div>
+                        <img src="{{ author.avatar }}" class="avatar avatar-medium" alt="image d'avatar de {{ author.fullName }}"/>                    </div>
                     <div class="col">
                         <h3>{{ author.fullName }}</h3>
-                        <span class="badge badge-primary">{{author.advertisments | length}} annonces</span>
+                        <span class="badge badge-primary">{{author.advertisements | length}} annonces</span>
                     </div>
                 </div>
                 {{ author.description | raw}}
