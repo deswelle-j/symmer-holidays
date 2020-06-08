@@ -3,5 +3,26 @@
 {% block title%}profile {{user.username}} {% endblock %}
 
 {% block body %}
-    <h1>Page profile de {{user.username}}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <img src="{{ user.avatar }}" class="avatar mb-2" alt="avatar">
+                <br>
+                <span class="badge badge-primary">{{ user.advertisements | length}} annonces</span>
+            </div>
+            <div class="col-9">
+                <h1>Page profile de {{user.username}}</h1>
+                <p>prénom : {{ user.firstname }}</p>
+                <p>nom : {{ user.lastname }}</p>
+            </div>
+            <div>
+                <span>Introduction</span><br>
+                {{ user.introduction | raw}}
+            </div>
+            <div>
+                <span>Description</span><br>
+                {{ user.description | raw}}
+            </div>
+        </div>
+    </div>
 {% endblock %}
